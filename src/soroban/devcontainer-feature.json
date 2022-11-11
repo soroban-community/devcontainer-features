@@ -1,0 +1,16 @@
+{
+    "name": "Stellar Soroban",
+    "id": "soroban",
+    "version": "1.0.2",
+    "description": "Installs everything necessary for smart contract development with Stellar",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "latest"
+            ],
+            "default": "latest",
+            "description": "Select a version, or enter your own (<major>.<minor>.<patch>)"
+        }
+    }
+}

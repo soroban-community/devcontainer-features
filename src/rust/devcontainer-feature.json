@@ -1,0 +1,66 @@
+{
+  "id": "rust",
+  "version": "1.0.8",
+  "name": "Rust",
+  "documentationURL": "https://github.com/devcontainers/features/tree/main/src/rust",
+  "description": "Installs Rust, common Rust utilities, and their required dependencies",
+  "options": {
+    "version": {
+      "type": "string",
+      "proposals": [
+        "stable",
+        "beta",
+        "nightly"
+      ],
+      "default": "stable",
+      "description": "Select or enter a version of Rust to install."
+    },
+    "profile": {
+      "type": "string",
+      "proposals": [
+        "minimal",
+        "default",
+        "complete"
+      ],
+      "default": "default",
+      "description": "Select a rustup install profile."
+    },
+    "sccache": {
+      "type": "boolean",
+      "default": "true",
+      "description": "Reduce compilation time by using sccache."
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vadimcn.vscode-lldb",
+        "mutantdino.resourcemonitor",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+      ],
+      "settings": {
+        "lldb.executable": "/usr/bin/lldb",
+        "files.watcherExclude": {
+          "**/target/**": true
+        },
+        "rust-analyzer.checkOnSave.command": "clippy"
+      }
+    }
+  },
+  "containerEnv": {
+    "CARGO_HOME": "/usr/local/cargo",
+    "RUSTUP_HOME": "/usr/local/rustup",
+    "PATH": "/usr/local/cargo/bin:${PATH}"
+  },
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/rust"
+  ]
+}

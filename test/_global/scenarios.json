@@ -1,12 +1,12 @@
 {
-    "color_and_hello": {
+    "rust_and_soroban": {
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
-            "color": {
-                "favorite": "purple"
+            "rust": {
+                "version": "stable"
             },
-            "hello": {
-                "greeting": "Greetings"
+            "soroban": {
+                "version": "latest"
             }
         }
     }

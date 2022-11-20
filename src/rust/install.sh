@@ -229,8 +229,35 @@ chmod -R g+r+w "${RUSTUP_HOME}" "${CARGO_HOME}"
 
 if [ "${SCCACHE_ENABLED}" = "true" ]; then
   echo "Installing sccache..."
-  cargo install sccache
-  updaterc "$(cat << EOF
+  sccache_version="0.3.1"
+  sccache_dist="sccache-v${sccache_version}-${download_architecture}-unknown-linux-musl"
+
+  curl -sSL "https://github.com/mozilla/sccache/releases/download/v${sccache_version}/${sccache_dist}.tar.gz" -o sccache.tar.gz
+  tar xvz sccache.tar.gz
+  chmod +x "${sccache_dist}/sccache"
+  sudo mv "${sccache_dist}/sccache" /usr/local/bin
+  rm -rf /tmp/sccache*
+  popd
+
+  updaterc "$(
+		cat <<- EOF
+			export RUSTC_WRAPPER=sccache
+			export SCCACHE_CACHE_SIZE=5G
+			export SCCACHE_DIR=/workspaces/.sccache
+		EOF
+  )"
+fi
+
+echo "Installing Cargo BInstall..."
+cargo install cargo-binstall
+
+echo "Installing Cargo tools..."
+cargo binstall cargo-watch cargo-edit cargo-workspaces
+
+if [ "${SCCACHE_ENABLED}" = "true" ]; then
+    echo "Installing sccache..."
+    cargo binstall sccache
+    updaterc "$(cat << EOF
 export RUSTC_WRAPPER=sccache \
 export SCCACHE_CACHE_SIZE=5G \
 export SCCACHE_DIR=/workspace/.sccache

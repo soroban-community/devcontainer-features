@@ -61,6 +61,6 @@
     "seccomp=unconfined"
   ],
   "installsAfter": [
-    "ghcr.io/devcontainers/features/rust"
+    "ghcr.io/devcontainers/features/common-utils"
   ]
 }
